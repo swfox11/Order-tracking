@@ -1,1 +1,15 @@
 ALTER TABLE users ADD COLUMN secret TEXT;
+CREATE TABLE users(
+id SERIAL PRIMARY KEY,
+name VARCHAR(100),
+phone VARCHAR(100) NOT NULL UNIQUE,
+password VARCHAR(100),
+userid VARCHAR(100)
+)
+CREATE TABLE orders(
+id SERIAL PRIMARY KEY,
+userid VARCHAR(100),
+subtotal numeric ,
+phone VARCHAR(100)
+
+)

@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<div class="container">
+  <div class="jumbotron centered">
+    
+    <h1 class="display-3">New Order</h1>
+    
+
+    <form action="/submit" method="POST">
+
+      <div class="form-group">
+        <input type="text" class="form-control text-center" name="userid" placeholder="give your user id" required>
+        <input type="number" class="form-control text-center" name="subtotal" placeholder="enter subtotal" required>
+      </div>
+      <button type="submit" class="btn btn-dark">Add</button>
+    </form>
+
+
+  </div>
+</div>
+<%- include('partials/footer') %>

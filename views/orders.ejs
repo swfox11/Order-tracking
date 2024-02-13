@@ -1,0 +1,37 @@
+<%- include('partials/header') %>
+
+  <div class="jumbotron text-center">
+    <div class="container">
+      
+      <h1 class="display-3">Order details</h1>
+      
+      <hr>
+      <%  if ( locals.list ){ %>
+        
+      <ul id="orderList">
+        <% list.forEach(item=> { %>
+          <li>
+            <h2>
+             userid= <%=item.userid%>
+            </h2>
+            <h2>
+             subtotal= <%=item.subtotal %>
+            </h2>
+            <h2>
+              PHONE NUMBER= <%=item.phone %>
+             </h2>
+          </li>
+          <% }); %>
+      </ul>
+      <% } else { %>
+        <h2>
+           <%=empty %>
+         </h2>
+          
+      <% } %>
+      <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+      <a class="btn btn-light btn-lg" href="/home2" role="button">GO BACK</a>
+    </div>
+  </div>
+
+  <%- include('partials/footer') %>

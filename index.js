@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import express from "express";
+import express, { query } from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import bcrypt from "bcrypt";
@@ -35,8 +35,11 @@ const db = new pg.Client({
 });
 db.connect();
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  await db.query("CREATE TABLE users(id SERIAL PRIMARY KEY,name VARCHAR(100),phone VARCHAR(100) NOT NULL UNIQUE,password VARCHAR(100),userid VARCHAR(100) );");
+  await db.query("CREATE TABLE orders(id SERIAL PRIMARY KEY,userid VARCHAR(100),subtotal numeric ,phone VARCHAR(100))");
   res.render("home.ejs");
+
 });
 
 app.get("/login", (req, res) => {
@@ -59,7 +62,7 @@ app.get("/logout", (req, res) => {
 app.get("/orders", async (req, res) => {
   console.log("in /order,get req",req.user);
 
-  ////////////////UPDATED GET SECRETS ROUTE/////////////////
+  
   if (req.isAuthenticated()) {
     try {
       console.log("in ger orders", req.user);
@@ -85,15 +88,10 @@ app.get("/orders", async (req, res) => {
 app.get("/home2", async (req, res) => {
   console.log("in app.get home2",req.user);
 
-  ////////////////UPDATED GET SECRETS ROUTE/////////////////
+  
   if (req.isAuthenticated()) {
     try {
-      // const result = await db.query(
-      //   `SELECT * FROM users WHERE phone = $1`,
-      //   [req.user.phone]
-      // );
-      // console.log(result);
-      //const secret = result.rows[0].secret;
+      
       res.render("home2.ejs");
       
         
@@ -105,7 +103,7 @@ app.get("/home2", async (req, res) => {
   }
 });
 
-////////////////SUBMIT GET ROUTE/////////////////
+
 app.get("/submit", function (req, res) {
   if (req.isAuthenticated()) {
     res.render("submit.ejs");
@@ -114,14 +112,6 @@ app.get("/submit", function (req, res) {
   }
 });
 
-
-// app.get(
-//   "/auth/google/secrets",
-//   passport.authenticate("google", {
-//     successRedirect: "/secrets",
-//     failureRedirect: "/login",
-//   })
-// );
 
 app.post(
   "/login",
@@ -171,7 +161,6 @@ app.post("/register", async (req, res) => {
 });
 
 
-////////////////SUBMIT POST ROUTE/////////////////
 app.post("/submit", async function (req, res) {
   const submitteduserId = req.body.userid;
   const submittedsubtotal = req.body.subtotal;

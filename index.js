@@ -36,8 +36,8 @@ const db = new pg.Client({
 db.connect();
 
 app.get("/", async (req, res) => {
-  await db.query("CREATE TABLE users(id SERIAL PRIMARY KEY,name VARCHAR(100),phone VARCHAR(100) NOT NULL UNIQUE,password VARCHAR(100),userid VARCHAR(100) );");
-  await db.query("CREATE TABLE orders(id SERIAL PRIMARY KEY,userid VARCHAR(100),subtotal numeric ,phone VARCHAR(100))");
+  // await db.query("CREATE TABLE users(id SERIAL PRIMARY KEY,name VARCHAR(100),phone VARCHAR(100) NOT NULL UNIQUE,password VARCHAR(100),userid VARCHAR(100) );");
+  // await db.query("CREATE TABLE orders(id SERIAL PRIMARY KEY,userid VARCHAR(100),subtotal numeric ,phone VARCHAR(100))");
   res.render("home.ejs");
 
 });
